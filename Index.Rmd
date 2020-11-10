@@ -1,0 +1,15 @@
+---
+title: "Deployment_web"
+author: "John Olanipekun"
+date: "11/9/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Deploying my models
+## 6 Lines of text above are tge YAML tags
+### We will knit this RMD to a html file
+Then push index.html to the github.io repo.
