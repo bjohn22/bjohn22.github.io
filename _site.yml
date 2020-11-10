@@ -1,0 +1,8 @@
+name: "Deployment_model"
+navbar:
+  title: "Deployment_model"
+  left:
+  - text: "Home"
+    href: index.html
+  - text: "Regression Analysis"
+    href: DDS-Unit-10_Homework_4web.html
