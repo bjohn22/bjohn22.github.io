@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="John Olanipekun" />
+
+<meta name="date" content="2020-10-27" />
+
+<title>DDS-Unit 10</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Deployment_model</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="About-me.html">About-me</a>
+</li>
+<li>
+  <a href="DDS-Unit-10_Homework_4web.html">Regression Analysis</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">DDS-Unit 10</h1>
+<h4 class="author">John Olanipekun</h4>
+<h4 class="date">10/27/2020</h4>
+
+</div>
+
+
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## v ggplot2 3.3.2     v purrr   0.3.4
+## v tibble  3.0.3     v dplyr   1.0.2
+## v tidyr   1.1.2     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.5.0</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(e1071)
+library(GGally)</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;GGally&#39;:
+##   method from   
+##   +.gg   ggplot2</code></pre>
+<pre class="r"><code>library(naniar)</code></pre>
+<pre class="r"><code>cars_df &lt;- read_csv(file.choose())</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Model = col_character(),
+##   MPG = col_double(),
+##   Cylinders = col_double(),
+##   Displacement = col_double(),
+##   Horsepower = col_double(),
+##   Weight = col_double(),
+##   Acceleration = col_double(),
+##   Year = col_double(),
+##   Origin = col_character()
+## )</code></pre>
+<pre class="r"><code>cars_df.fit &lt;- lm(MPG~Weight, data=cars_df)
+summary(cars_df.fit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = MPG ~ Weight, data = cars_df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -12.0008  -2.7684  -0.3342   2.1245  16.4920 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 46.2734424  0.7974987   58.02   &lt;2e-16 ***
+## Weight      -0.0076613  0.0002577  -29.73   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.332 on 392 degrees of freedom
+## Multiple R-squared:  0.6927, Adjusted R-squared:  0.6919 
+## F-statistic: 883.6 on 1 and 392 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>confint(cars_df.fit)</code></pre>
+<pre><code>##                    2.5 %       97.5 %
+## (Intercept) 44.705532760 47.841351974
+## Weight      -0.008168061 -0.007154609</code></pre>
+<div id="step-hypothesis-test-for-the-slope." class="section level3">
+<h3>6-step hypothesis test for the slope.</h3>
+<pre class="r"><code>beta_1_hat &lt;- cars_df.fit$coefficients[2]
+
+tstat = cars_df.fit$coefficients[2]/0.0002577 #beta_1_hat / SE(beta_1_hat)
+pvalue = (pt(tstat,7)) * 2 # Mult by 2 since 2 sided test
+tstat</code></pre>
+<pre><code>##    Weight 
+## -29.72967</code></pre>
+<pre class="r"><code>pvalue</code></pre>
+<pre><code>##      Weight 
+## 1.25541e-08</code></pre>
+<p>###Question 1a</p>
+<pre class="r"><code>cars_df %&gt;% ggplot(aes(x=Weight, y=MPG)) + geom_point() + ggtitle(&quot;LR Model: Weight vs MPG(cars df)&quot;) + geom_smooth(method = &quot;lm&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="DDS-Unit-10_Homework_4web_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>Model_1 &lt;- lm(MPG ~ Weight,data = cars_df)
+summary(Model_1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = MPG ~ Weight, data = cars_df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -12.0008  -2.7684  -0.3342   2.1245  16.4920 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 46.2734424  0.7974987   58.02   &lt;2e-16 ***
+## Weight      -0.0076613  0.0002577  -29.73   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.332 on 392 degrees of freedom
+## Multiple R-squared:  0.6927, Adjusted R-squared:  0.6919 
+## F-statistic: 883.6 on 1 and 392 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>confint(Model_1)</code></pre>
+<pre><code>##                    2.5 %       97.5 %
+## (Intercept) 44.705532760 47.841351974
+## Weight      -0.008168061 -0.007154609</code></pre>
+<pre class="r"><code>cars_df_2 = cars_df %&gt;% mutate(Wt_transform = Weight^2)
+Model_2 &lt;- lm(MPG ~ Weight + Wt_transform,data = cars_df_2)
+summary(Model_2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = MPG ~ Weight + Wt_transform, data = cars_df_2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -12.6529  -2.7284  -0.3205   1.8205  16.0652 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   6.227e+01  2.990e+00  20.828  &lt; 2e-16 ***
+## Weight       -1.848e-02  1.970e-03  -9.382  &lt; 2e-16 ***
+## Wt_transform  1.692e-06  3.056e-07   5.536 5.67e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.177 on 391 degrees of freedom
+## Multiple R-squared:  0.715,  Adjusted R-squared:  0.7136 
+## F-statistic: 490.5 on 2 and 391 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>confint(Model_2)</code></pre>
+<pre><code>##                      2.5 %        97.5 %
+## (Intercept)   5.639102e+01  6.814689e+01
+## Weight       -2.235054e-02 -1.460615e-02
+## Wt_transform  1.090969e-06  2.292468e-06</code></pre>
+<p>###leave one out cross validation</p>
+<pre class="r"><code>#Model 1
+pred_error_sq &lt;- c(0)
+for(i in 1:dim(cars_df)[1]) {
+ cars_train &lt;- cars_df[-i,]  # loop to leave one out each time
+  fit &lt;- lm(MPG ~ Weight,data = cars_train) 
+  mpg_i &lt;- predict(fit, data.frame(Weight = cars_df[i,6])) # predict each iteration observation
+  pred_error_sq &lt;- pred_error_sq + (cars_df[i,2] - mpg_i)^2 # cummulate squared prediction errors
+}
+
+SSE = var(cars_df$MPG) * ((dim(cars_df)[1])-1) #sum of squared errors
+
+R_squared &lt;- 1 - (pred_error_sq/SSE) # goodness of fit
+R_squared</code></pre>
+<pre><code>##         MPG
+## 1 0.6898232</code></pre>
+<pre class="r"><code>RMSE_2 = sqrt(pred_error_sq / (dim(cars_df)[1]))
+RMSE_2</code></pre>
+<pre><code>##        MPG
+## 1 4.341388</code></pre>
+<pre class="r"><code># Model 2
+cars_df_2 = cars_df %&gt;% mutate(Wt_transform = Weight^2)
+pred_error_sq2 &lt;- c(0)
+for(i in 1:dim(cars_df_2)[1]) {
+  cars_train &lt;- cars_df_2[-i,] 
+  fit &lt;- lm(MPG ~ Weight + I(Weight^2), data = cars_train) 
+  mpgs &lt;- predict(fit, data.frame(Weight = cars_df_2[i,6])) 
+  pred_error_sq2 &lt;- pred_error_sq2 + (cars_df_2[i,2] - mpgs)^2 
+}
+
+SSE = var(cars_df_2$MPG) * ((dim(cars_df_2)[1])-1) #sum of squared errors
+
+R_squared &lt;- 1 - (pred_error_sq2/SSE) # Measure for goodness of fit
+R_squared</code></pre>
+<pre><code>##         MPG
+## 1 0.7114874</code></pre>
+<pre class="r"><code>RMSE_3 = sqrt((pred_error_sq2 / dim(cars_df_2)[1]))
+RMSE_3</code></pre>
+<pre><code>##        MPG
+## 1 4.187032</code></pre>
+<pre class="r"><code>RMSE.list &lt;- data.frame(RMSE_2=RMSE_2,RMSE_3=RMSE_3)
+RMSE.list</code></pre>
+<pre><code>##        MPG    MPG.1
+## 1 4.341388 4.187032</code></pre>
+<pre class="r"><code># Using model 2 let&#39;s estimate the mean mpg of the subpopulaiton of cars that weigh 2000lbs
+fit_2k &lt;- lm(MPG ~ Weight + I(Weight^2),data = cars_df)
+car_2k &lt;- data.frame(Weight = 2000)
+car2k_predict &lt;- predict(fit_2k, newdata = car_2k, interval = &quot;confidence&quot;)
+car2k_predict</code></pre>
+<pre><code>##        fit      lwr      upr
+## 1 32.07914 31.33136 32.82691</code></pre>
+<p>###Question 3. a)Using the cars.csv dataset, We would like to assess the relationship (interpret slope parameter) between mpg and horsepower. ###Notice that some of the horsepowers are missing.<br />
+b)Impute (predict and insert) the missing horsepowers by fitting a regression model. c)You may use any of the variables as regressors EXCEPT for mps (since we will later be using horsepower to predict mpg.) d)Assess the relationship between the mpg and the slope. Make sure and include estimates of your uncertainty (ie. Confidence intervals.) d)Use your model and imputed data to estimate the mean mpg for a car with 250 horsepower.</p>
+<pre class="r"><code>#3a)
+cars_df %&gt;% ggplot(aes(x=MPG, y=Horsepower)) + geom_point()+
+  ggtitle(&quot;LR Model: Horsepower vs MPG(cars df)&quot;) + geom_smooth(method = &quot;lm&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 2 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<p><img src="DDS-Unit-10_Homework_4web_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>#how many rows are missing. 
+summary(cars_df)</code></pre>
+<pre><code>##     Model                MPG          Cylinders      Displacement     Horsepower        Weight      Acceleration        Year      
+##  Length:394         Min.   : 9.00   Min.   :3.000   Min.   : 68.0   Min.   : 46.0   Min.   :1613   Min.   : 8.00   Min.   :70.00  
+##  Class :character   1st Qu.:17.12   1st Qu.:4.000   1st Qu.:105.0   1st Qu.: 75.0   1st Qu.:2226   1st Qu.:13.80   1st Qu.:73.00  
+##  Mode  :character   Median :23.00   Median :4.000   Median :151.0   Median : 93.5   Median :2804   Median :15.50   Median :76.00  
+##                     Mean   :23.47   Mean   :5.464   Mean   :194.1   Mean   :104.5   Mean   :2976   Mean   :15.55   Mean   :76.01  
+##                     3rd Qu.:29.00   3rd Qu.:8.000   3rd Qu.:265.8   3rd Qu.:126.0   3rd Qu.:3612   3rd Qu.:17.07   3rd Qu.:79.00  
+##                     Max.   :46.60   Max.   :8.000   Max.   :455.0   Max.   :230.0   Max.   :5140   Max.   :24.80   Max.   :82.00  
+##                                                                     NA&#39;s   :2                                                     
+##     Origin         
+##  Length:394        
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+##                    
+## </code></pre>
+<pre class="r"><code>gg_miss_var(cars_df)</code></pre>
+<p><img src="DDS-Unit-10_Homework_4web_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code># Plots to see associations
+cars_df %&gt;% ggplot(aes(x=Acceleration, y=Horsepower)) + geom_point()+
+  ggtitle(&quot;LR Model: Horsepower vs Acceleration(cars df)&quot;) + geom_smooth(method = &quot;lm&quot;) #looks better than rest</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 2 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<p><img src="DDS-Unit-10_Homework_4web_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="r"><code>cars_df %&gt;% ggplot(aes(x=Weight, y=Horsepower)) + geom_point() </code></pre>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<p><img src="DDS-Unit-10_Homework_4web_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
+<pre class="r"><code>cars_df %&gt;% ggplot(aes(x=Displacement, y=Horsepower)) + geom_point()</code></pre>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<p><img src="DDS-Unit-10_Homework_4web_files/figure-html/unnamed-chunk-12-3.png" width="672" /></p>
+<pre class="r"><code># corresponding acceleration values for missing horsepower rows
+hp_miss &lt;- cars_df %&gt;% filter(is.na(Horsepower))
+
+#fit the model
+fit = lm(Horsepower~Acceleration, data=cars_df)
+
+# Create the list for the missing values to be predicted
+hp_acc_missing &lt;- c(hp_miss$Acceleration[1], hp_miss$Acceleration[2])
+# Create data frame with correct column names
+missingData &lt;- data.frame(Acceleration = hp_acc_missing)
+
+pred_hp &lt;- predict(fit, newdata = missingData)
+pred_hp</code></pre>
+<pre><code>##         1         2 
+## 101.98211  56.78913</code></pre>
+<pre class="r"><code># # Insert our predicted horsepower
+# hp_miss_insert1 &lt;- hp_miss$Horsepower[1] &lt;- pred_hp[1]
+# hp_miss_insert1 &lt;- hp_miss$Horsepower[2] &lt;- pred_hp[2]
+# 
+# cars_df[hp_miss$Horsepower[1]] &lt;- pred_hp[1]
+# cars_df[hp_miss$Acceleration[1],]$Horsepower &lt;- pred_hp[2]
+# 
+# cars_df[hp_miss_insert1[]]
+# 
+# # Insert our predicted horsepower
+# cars_df[hp_miss[1],]$Horsepower &lt;- pred_hp[1]
+# cars_df[hp_miss[2],]$Horsepower &lt;- pred_hp[2]
+# 
+# 
+# 
+# # Sanity check we have no more missing values
+# summary(cars_df)</code></pre>
+<pre class="r"><code># hp_new &lt;- data.frame(Horsepower = 250)
+# pred_hp2 &lt;- predict(fit, newdata = hp_new)
+# pred_hp
+# new_fit = lm(MPG~Horsepower+Acceleration, data=cars_df)
+# fit = lm(Horsepower~Acceleration, data=cars_df)
+# hp_250 &lt;- predict(new_fit, newdata = data.frame(Horsepower = 250, Acceleration=25), interval = &quot;confidence&quot;)
+# hp_250</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

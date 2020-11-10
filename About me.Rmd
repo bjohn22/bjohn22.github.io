@@ -1,0 +1,17 @@
+---
+title: "About me"
+author: "John Olanipekun"
+date: "11/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### About me
+
+##Name: "Babatunde John Olanipekun"
+##Origin: "Born and raised in Nigeria"
+##Where you went to school: "Around the world: Aberdeeen, Scotland. Newfoundland, Canada
+##Feel free to check my rStudio projects in the other tabs

@@ -4,5 +4,7 @@ navbar:
   left:
   - text: "Home"
     href: index.html
+  - text: "About-me"
+    href: About-me.html
   - text: "Regression Analysis"
     href: DDS-Unit-10_Homework_4web.html
