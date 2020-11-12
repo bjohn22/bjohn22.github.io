@@ -1,0 +1,121 @@
+---
+title: "Deploy_app"
+author: "Olanipekun"
+date: "4/3/2019"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Rshiny Test
+This is a high level utilization an RShiny app in RMarkdown
+
+```{r }
+library(shiny)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+install.packages("rsconnect")
+completeData_J<- read.csv("C:/Users/olani/OneDrive/Documents/Data Science/SMU-Data Science/Doing Data Science/MSDS_6306_DDS/Unit 8 and 9 Case Study 1/completeData_J.csv", header = TRUE, sep = ",") 
+
+ui <- fluidPage(
+  
+ # App title ----
+  titlePanel("Beers"),
+
+  # Sidebar layout with input and output definitions ----
+  sidebarLayout(
+
+    # Sidebar panel for inputs ----
+    sidebarPanel(
+     # Input: Slider for the number of bins ----
+      sliderInput(inputId = "bins",
+                  label = "Number of bins(Histogram):",
+                  min = 1,
+                  max = 100,
+                  value = 30),
+
+     
+      # Input: Select a dataset ----
+      selectInput("dataset", "Choose a dataset:",
+                  choices = c("IBU", "ABV")),
+     
+     #input:Select the state
+      selectInput("State", "Choose a US state:",
+                  choices = completeData_J$State),
+
+      # Include clarifying text ----
+       helpText("Note: Please click Update View to see plots."),
+       
+     # Input: actionButton() to defer the rendering of output ----
+     # until the user explicitly clicks the button (rather than
+     # doing it immediately when inputs change). This is useful if
+     # the computations required to render output are inordinately
+     # time-consuming.
+      actionButton("update", "Update View")
+
+    ),
+
+    # Main panel for displaying outputs ----
+    mainPanel(
+
+      # Output: Header + summary of distribution ----
+      h4("Histogram"),
+      plotOutput(outputId = "distPlot"),
+
+      # Output: Header + table of distribution ----
+      h4("Boxplot"),
+      plotOutput("box")
+    )
+
+  )
+)
+
+# Define server logic to summarize and view selected dataset ----
+server <- function(input, output) {
+
+  # Return the requested dataset ----
+  # Note that we use eventReactive() here, which depends on
+  # input$update (the action button), so that the output is only
+  # updated when the user clicks the button
+  datasetInput <- eventReactive(input$update, {
+    switch(input$dataset,
+           "IBU" = completeData_J$IBU,
+           "ABV" = completeData_J$ABV)
+  }, ignoreNULL = TRUE)
+
+  
+  stateInput <- eventReactive(input$update, {input$State}) 
+
+  # Generate a histogram and boxplot of the respective dataset ----
+  
+  output$distPlot <- renderPlot({
+    
+    x    <- datasetInput() 
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+  
+    hist(x, breaks = bins, col = "#75AADB", border = "white",
+         xlab = input$dataset,
+         main = input$dataset)
+    
+  })
+  output$box <- renderPlot({
+    
+    x    <- datasetInput()
+    boxplot(x, col = "blue", ylab=input$dataset, main = input$dataset)
+
+  })
+
+
+}
+
+# Create Shiny app ----
+
+shinyApp(ui, server)
+
+```
+
